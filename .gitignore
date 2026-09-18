@@ -1,0 +1,16 @@
+# Ambiente Virtual
+venv/
+env/
+ENV/
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos temporários de editores
+*.save
+*.swp
+*.swo
+.DS_Store
