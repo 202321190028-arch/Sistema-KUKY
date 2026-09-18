@@ -40,6 +40,49 @@ def listar_usuarios():
         cursor.close()
         conexao.close()
 
+def atualizar_usuario(user_id, novo_nome, novo_email):
+    conexao = conectar()
+    if not conexao:
+        return
+
+    try:
+        cursor = conexao.cursor()
+        sql = "UPDATE usuarios SET nome = %s, email = %s WHERE id = %s"
+        valores = (novo_nome, novo_email, user_id)
+        cursor.execute(sql, valores)
+        conexao.commit()
+        
+        if cursor.rowcount > 0:
+            print(f"\nUsuário ID {user_id} atualizado com sucesso!")
+        else:
+            print(f"\nNenhum usuário encontrado com o ID {user_id}.")
+    except Exception as e:
+        print(f"\nErro ao atualizar usuário: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def deletar_usuario(user_id):
+    conexao = conectar()
+    if not conexao:
+        return
+
+    try:
+        cursor = conexao.cursor()
+        sql = "DELETE FROM usuarios WHERE id = %s"
+        cursor.execute(sql, (user_id,))
+        conexao.commit()
+        
+        if cursor.rowcount > 0:
+            print(f"\nUsuário ID {user_id} removido com sucesso!")
+        else:
+            print(f"\nNenhum usuário encontrado com o ID {user_id}.")
+    except Exception as e:
+        print(f"\nErro ao deletar usuário: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
 if __name__ == "__main__":
-    cadastrar_usuario("Lucas", "lucas@example.com")
+    print("Testando o CRUD completo do Sistema-KUKY:")
     listar_usuarios()
